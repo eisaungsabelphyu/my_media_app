@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     //admin list
     Route::get('admin/list',[ListController::class,'index'])->name('admin#list');
     Route::get('admin/accountDelete/{id}',[ListController::class,'accountDelete'])->name('admin#accountDelete');
+    
 
     //category
     Route::get('category',[CategoryController::class,'index'])->name('admin#category');

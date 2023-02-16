@@ -9,7 +9,15 @@ class ListController extends Controller
 {
     //direct admin list page
     public function index(){
-        $users = User::get()->toArray();
+        $users = User::when(request('key'),function($q){
+                    $searchKey = request('key');
+                
+                    $q->orWhere('name','like','%'.$searchKey.'%')
+                        ->orWhere('email','like','%'.$searchKey.'%')
+                        ->orWhere('phone','like','%'.$searchKey.'%')
+                        ->orWhere('address','like','%'.$searchKey.'%')
+                        ->orWhere('gender','like','%'.$searchKey.'%');
+        })->get()->toArray();
         return view('admin.list.index',compact('users'));
     }
 
@@ -18,4 +26,6 @@ class ListController extends Controller
         User::where('id',$id)->delete();
         return back()->with(['deleteSuccess' => "Account Deleted!"]);
     }
+
+
 }

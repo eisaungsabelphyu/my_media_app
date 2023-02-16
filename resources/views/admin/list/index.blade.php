@@ -14,15 +14,18 @@
                 <h3 class="card-title">Admin List Page</h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <form action="{{ route('admin#list') }}" method="GET">
+                    @csrf
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="key" value="{{request('key')}}" class="form-control float-right" placeholder="Search">
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
+                        <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                  </div>
+                    </div>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
