@@ -1,20 +1,58 @@
 @extends('admin.layouts.app')
 @section('content')
-    <div class="col-12">
+    <div class="col-4">
+        {{-- @if (session('createSuccess'))
+            <div class="col-4 offset-8">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fa-solid fa-check"></i>  {{session('createSuccess')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif --}}
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('admin#categoryCreate') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label" for="categoryName">Category Name</label>
+                        <input type="text" class="form-control @error('categoryName') is-invalid @enderror" name="categoryName" id="categoryName">
+                        @error('categoryName')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                       <textarea cols="30" rows="10" class="form-control @error('description') is-invalid @enderror" name="description" id="description"></textarea>
+                       @error('description')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-7">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Category Page</h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <form>
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="searchKey" value="{{request('searchKey')}}" class="form-control float-right" placeholder="Search">
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -23,57 +61,25 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Pizza Name</th>
-                      <th>Image</th>
-                      <th>Price</th>
-                      <th>Publish Status</th>
-                      <th>Buy 1 Get 1 Status</th>
+                      <th>Category Name</th>
+                      <th>Description</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($categories as $category)
                     <tr>
-                      <td>1</td>
-                      <td>Vegatable</td>
-                      <td>
-                        <img src="https://st.depositphotos.com/1003814/5052/i/950/depositphotos_50523105-stock-photo-pizza-with-tomatoes.jpg" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
+                        <td>{{ $category['category_id'] }}</td>
+                        <td class="col-3">{{ $category['title']}}</td>
+                        <td class="col-5 text-start">{{ $category['description']}}</td>
+                        <td>
+                            <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
+                            <a href="{{route('admin#categoryDelete',$category['category_id'])}}">
+                                <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                            </a>
+                        </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Vegatable</td>
-                      <td>
-                         <img src="http://simply-delicious-food.com/wp-content/uploads/2020/06/Grilled-Pizza-Margherita-3.jpg" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Vegatable</td>
-                      <td>
-                         <img src="https://www.biggerbolderbaking.com/wp-content/uploads/2019/07/15-Minute-Pizza-WS-Thumbnail.png" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white" ><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
