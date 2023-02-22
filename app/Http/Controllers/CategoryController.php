@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -28,16 +29,41 @@ class CategoryController extends Controller
 
     //category delete
     public function delete($id){
-        Category::where('category_id',$id)->delete();
-        return back()->with(['deleteSuccess'=>'Category Deleted!']);
+        Category::where('id',$id)->delete();
+        return redirect()->route('admin#category')->with(['deleteSuccess'=>'Category Deleted!']);
+    }
+
+    //category edit page
+    public function edit($id){
+        $editCategory = Category::where('id',$id)->first();
+        $categories = Category::get();
+        return view('admin.category.edit',compact('editCategory','categories'));
+    }
+
+    //category update page
+    public function update(Request $request){
+
+       $this->requestValidationCheck($request);
+        $data = $this->getUpdateData($request);
+        Category::where('id',$request->categoryId)->update($data);
+        return redirect()->route('admin#category')->with(['updateSuccess'=>'Success Updating']);
     }
 
     //validation check
     private function requestValidationCheck($request){
         Validator::make($request->all(),[
-            'categoryName' => 'required|unique:categories,title',
+            'categoryName' => 'required|unique:categories,title,'.$request->categoryId,
             'description' => 'required|min:10'
         ])->validate();
+    }
+
+    //get update date
+    private function getUpdateData($request){
+        return[
+            'title'=>$request->categoryName,
+            'description'=>$request->description,
+            'updated_at'=>Carbon::now()
+        ];
     }
 
     //get request data

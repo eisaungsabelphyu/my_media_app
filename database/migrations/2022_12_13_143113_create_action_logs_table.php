@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('action_logs', function (Blueprint $table) {
-            $table->id('actionLog_id');
+            $table->id();
             $table->integer('user_id');
             $table->integer('post_id');
             $table->timestamps();
