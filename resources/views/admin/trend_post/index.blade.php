@@ -23,57 +23,33 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Pizza Name</th>
+                      <th>Post Title</th>
                       <th>Image</th>
-                      <th>Price</th>
-                      <th>Publish Status</th>
-                      <th>Buy 1 Get 1 Status</th>
+                      <th>View Count</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Vegatable</td>
-                      <td>
-                        <img src="https://st.depositphotos.com/1003814/5052/i/950/depositphotos_50523105-stock-photo-pizza-with-tomatoes.jpg" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
+                    @foreach ($trendPost as $post)
+                        <tr>
+                            <td>{{ $post['post_id'] }}</td>
+                            <td>{{ $post['title'] }}</td>
+                            <td>
+                               @if ($post['image'] == null)
+                                     <img src="{{asset('image/img-not-found.png')}}" class="img-thumbnail" width="100px">
+                               @else
+                                    <img src="{{asset('storage/'.$post['image'])}}" class="img-thumbnail" width="100px">
+                               @endif
+                            </td>
+                            <td><i class="fa-solid fa-eye"></i> {{$post['post_count']}}</td>
+                            <td>
+                                <a href="{{route('admin#trendPostDetail',$post['post_id'])}}">
+                                    <button class="btn btn-sm bg-dark text-white"><i class="fa-solid fa-info"></i></button>
+                                </a>
+
+                            </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Vegatable</td>
-                      <td>
-                         <img src="http://simply-delicious-food.com/wp-content/uploads/2020/06/Grilled-Pizza-Margherita-3.jpg" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Vegatable</td>
-                      <td>
-                         <img src="https://www.biggerbolderbaking.com/wp-content/uploads/2019/07/15-Minute-Pizza-WS-Thumbnail.png" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white" ><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

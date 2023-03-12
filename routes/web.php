@@ -51,4 +51,5 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //trend post
     Route::get('trendPost',[TrendPostController::class,'index'])->name('admin#trendPost');
+    Route::get('trendPost/detail/{id}',[TrendPostController::class,'detail'])->name('admin#trendPostDetail');
 });
