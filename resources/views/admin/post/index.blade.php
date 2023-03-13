@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="col-7">
+    <div class="col-8">
         @if (session('updateSuccess'))
             <div class="col-12">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -112,7 +112,7 @@
                             <tr class="tr-shadow">
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->title }}</td>
-                                <td>{{ $post->description }}</td>
+                                <td style="white-space:pre; word-wrap:break-word;">{{ $post->description }}</td>
                                 <td>{{ $post->category_title }}</td>
                                 <td>
                                     @if ($post->image == null)
@@ -136,7 +136,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-3">
+                    {{ $posts->appends(request()->query())->links() }}
+                </div>
             </div>
+
             <!-- /.card-body -->
         </div>
         <!-- /.card -->

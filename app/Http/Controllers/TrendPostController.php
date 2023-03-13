@@ -14,6 +14,7 @@ class TrendPostController extends Controller
         $trendPost = ActionLog::select('action_logs.*','posts.*', DB::raw('COUNT(action_logs.post_id) as post_count'))
                                 ->leftJoin('posts', 'posts.id','action_logs.post_id')
                                 ->groupBy('action_logs.post_id')
+                                ->orderBy('post_count','desc')
                                 ->get();
 
         return view('admin.trend_post.index',compact('trendPost'));

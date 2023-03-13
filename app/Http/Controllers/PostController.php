@@ -19,7 +19,9 @@ class PostController extends Controller
                 ->orWhere('categories.title','like','%'.request('searchKey').'%');
 
         })->leftJoin('categories','posts.category_id','categories.id')
-        ->get();
+        ->paginate(4);
+
+
         $category = Category::get();
         return view('admin.post.index',compact('posts','category'));
     }
