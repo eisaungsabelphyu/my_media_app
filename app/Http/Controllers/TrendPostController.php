@@ -11,12 +11,12 @@ class TrendPostController extends Controller
 {
     //direct trend post page
     public function index(){
-        $trendPost = ActionLog::select('action_logs.*','posts.*', DB::raw('COUNT(action_logs.post_id) as post_count'))
+        $trendPost = ActionLog::select('action_logs.post_id','posts.*', DB::raw('COUNT(action_logs.post_id) as post_count'))
                                 ->leftJoin('posts', 'posts.id','action_logs.post_id')
                                 ->groupBy('action_logs.post_id')
                                 ->orderBy('post_count','desc')
-                                ->get();
-
+                                ->paginate(4);
+        
         return view('admin.trend_post.index',compact('trendPost'));
     }
 

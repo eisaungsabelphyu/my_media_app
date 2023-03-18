@@ -32,18 +32,18 @@
                   <tbody>
                     @foreach ($trendPost as $post)
                         <tr>
-                            <td>{{ $post['post_id'] }}</td>
-                            <td>{{ $post['title'] }}</td>
+                            <td>{{ $post->post_id }}</td>
+                            <td>{{ $post->title }}</td>
                             <td>
-                               @if ($post['image'] == null)
+                               @if ($post->image == null)
                                      <img src="{{asset('image/img-not-found.png')}}" class="img-thumbnail" width="100px">
                                @else
-                                    <img src="{{asset('storage/'.$post['image'])}}" class="img-thumbnail" width="100px">
+                                    <img src="{{asset('storage/'.$post->image)}}" class="img-thumbnail" width="100px">
                                @endif
                             </td>
-                            <td><i class="fa-solid fa-eye"></i> {{$post['post_count']}}</td>
+                            <td><i class="fa-solid fa-eye"></i> {{$post->post_count}}</td>
                             <td>
-                                <a href="{{route('admin#trendPostDetail',$post['post_id'])}}">
+                                <a href="{{route('admin#trendPostDetail',$post->post_id)}}">
                                     <button class="btn btn-sm bg-dark text-white"><i class="fa-solid fa-info"></i></button>
                                 </a>
 
@@ -52,7 +52,11 @@
                     @endforeach
                   </tbody>
                 </table>
+
               </div>
+               <div class="mt-3">
+                    {{ $trendPost->links() }}
+                </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

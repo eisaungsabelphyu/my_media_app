@@ -136,13 +136,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="mt-3">
-                    {{ $posts->appends(request()->query())->links() }}
-                </div>
+
             </div>
 
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
+        <div class="mt-3">
+                    {{ $posts->links() }}
+                </div>
     </div>
 @endsection

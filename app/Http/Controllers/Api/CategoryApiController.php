@@ -29,57 +29,18 @@ class CategoryApiController extends Controller
     public function search(Request $request){
 
         if($request->key != null){
-           $post = Post::where('id',$request->key)->get();
+           $post = Post::select('posts.*','categories.title as category')
+                       ->leftJoin('categories','posts.category_id','categories.id')
+                        ->where('posts.category_id',$request->key)->paginate(4);
         }else{
-            $post = Post::get();
+            $post = Post::select('posts.*','categories.title as category')
+                       ->leftJoin('categories','posts.category_id','categories.id')
+                        ->paginate(4);
         }
         return response()->json([
             'searchData' => $post
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

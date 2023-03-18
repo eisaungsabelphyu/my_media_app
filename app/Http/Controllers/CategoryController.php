@@ -15,7 +15,7 @@ class CategoryController extends Controller
                         $query->orWhere('title','like','%'.request('searchKey').'%')
                             ->orWhere('description','like','%'.request('searchKey').'%');
         })
-                        ->get()->toArray();
+                        ->paginate(3);
         return view('admin.category.index',compact('categories'));
     }
 

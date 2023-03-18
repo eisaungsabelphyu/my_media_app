@@ -93,5 +93,8 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
+        <div class="mt-3">
+                    {{ $categories->links() }}
+                </div>
     </div>
 @endsection
