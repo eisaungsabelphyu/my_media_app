@@ -29,11 +29,11 @@ Route::post('user/login',[AuthApiController::class,'login']);
 
 //category
 Route::get('category',[CategoryApiController::class,'index']);
-Route::post('category/search',[CategoryApiController::class,'search']);
+// Route::post('category/search',[CategoryApiController::class,'search']);
 
 //post
 Route::get('post',[PostApiController::class,'index']);
-Route::post('post/search',[PostApiController::class,'searchData']);
+// Route::post('post/search',[PostApiController::class,'searchData']);
 Route::post('post/detail',[PostApiController::class,'detail']);
 
 //action logs

@@ -18,6 +18,14 @@ class PostApiController extends Controller
         //get all post
 
          $posts = Post::select('posts.*','categories.title as category')
+                    ->when(request('searchKey'),function($query){
+                        $query->orWhere('posts.title','like','%'.request('searchKey').'%')
+                            ->orWhere('categories.title','like','%'.request('searchKey').'%');
+
+                    })
+                    ->when(request('category'),function($q){
+                        $q->where('posts.category_id',request('category'));
+                    })
                        ->leftJoin('categories','posts.category_id','categories.id')
                        ->paginate(4);
         return response()->json([
@@ -27,15 +35,15 @@ class PostApiController extends Controller
     }
 
    //search post data
-    public function searchData(){
+    // public function searchData(){
 
-        $post = Post::select('posts.*','categories.title as category')
-                       ->leftJoin('categories','posts.category_id','categories.id')
-        ->orWhere('posts.title','like','%'.request('key').'%')->paginate(4);
-        return response()->json([
-            'searchKey' => $post
-        ], 200);
-    }
+    //     $post = Post::select('posts.*','categories.title as category')
+    //                    ->leftJoin('categories','posts.category_id','categories.id')
+    //     ->orWhere('posts.title','like','%'.request('key').'%')->paginate(4);
+    //     return response()->json([
+    //         'searchKey' => $post
+    //     ], 200);
+    // }
 
     //post detail
     public function detail(Request $request){
