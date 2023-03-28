@@ -12,7 +12,8 @@ class ActionLogsController extends Controller
     public function action(Request $request){
         $data = [
             'user_id' => $request->user_id,
-            'post_id' => $request->post_id
+            'post_id' => $request->post_id,
+            
         ];
         ActionLog::create($data);
 

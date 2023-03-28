@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('post_id');
-            $table->longText('comment');
+            $table->integer('like_unlike_status')->default(0);
             $table->timestamps();
         });
     }

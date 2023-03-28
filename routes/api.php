@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\PostApiController;
+use App\Http\Controllers\Api\ReactionController;
 use App\Http\Controllers\Api\ActionLogsController;
 use App\Http\Controllers\Api\CategoryApiController;
+
 
 
 
@@ -38,3 +40,7 @@ Route::post('post/detail',[PostApiController::class,'detail']);
 
 //action logs
 Route::post('post/actionLogs',[ActionLogsController::class,'action']);
+
+//reaction
+Route::post('post/react',[ReactionController::class,'react']);
+Route::post('post/getReactData',[ReactionController::class,'reactData']);

@@ -16,7 +16,7 @@ class TrendPostController extends Controller
                                 ->groupBy('action_logs.post_id')
                                 ->orderBy('post_count','desc')
                                 ->paginate(4);
-        
+
         return view('admin.trend_post.index',compact('trendPost'));
     }
 
